@@ -7,7 +7,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.input.KeyCode;
-
+//
 
 public class HelloApplication extends Application {
     // set the size of the board to be displayed
