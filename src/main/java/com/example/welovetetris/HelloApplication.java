@@ -59,7 +59,6 @@ public class HelloApplication extends Application {
             if (event.getCode().equals(KeyCode.ESCAPE)) {
                 System.exit(0);
             }
-            // check if the key is any of the arrows and move
             else if (event.getCode().equals(KeyCode.DOWN)) {
                 moveDown();
                 frame.setText(getFrame());
