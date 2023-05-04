@@ -25,6 +25,8 @@ public class HelloApplication extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
+        Board b = new Board();
+
         // Add a title to the application window
         primaryStage.setTitle("Hello World!");
 
@@ -44,7 +46,7 @@ public class HelloApplication extends Application {
 
         // create a new text node to display text on the interface
         // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/Text.html
-        Text frame = new Text(getFrame());
+        Text frame = new Text(firstFrame());
         Font frameFont = new Font("Courier New", 20);
         frame.setFont(frameFont);
         frame.setTextAlignment(TextAlignment.CENTER);
@@ -61,15 +63,15 @@ public class HelloApplication extends Application {
             }
             else if (event.getCode().equals(KeyCode.DOWN)) {
                 moveDown();
-                frame.setText(getFrame());
+                frame.setText(firstFrame());
             }
             else if (event.getCode().equals(KeyCode.LEFT)) {
                 moveLeft();
-                frame.setText(getFrame());
+                frame.setText(firstFrame());
             }
             else if (event.getCode().equals(KeyCode.RIGHT)) {
                 moveRight();
-                frame.setText(getFrame());
+                frame.setText(firstFrame());
             }
         });
 
@@ -84,9 +86,34 @@ public class HelloApplication extends Application {
     public void moveRight() { if (x < BOARD_WIDTH-1) { x += 1; } }
 
     // draw a board using BOARD_WIDTH, BOARD_HEIGHT, x, and y
-    public String getFrame() {
+    public String firstFrame() {
         StringBuilder frame = new StringBuilder();
         // add a top border
+        frame.append("-".repeat(BOARD_WIDTH));
+        // add each row of the board
+        for (int r = 0; r < BOARD_HEIGHT; r++) {
+            frame.append('\n');
+            // add a left border
+            frame.append('|');
+            // fill in this row (possibly including a frog)
+            for (int c = 0; c < BOARD_WIDTH; c++) {
+                if (r == 0 && c == x) {
+                    frame.append('F');
+                } else {
+                    frame.append(' ');
+                }
+            }
+            // add a right border
+            frame.append('|');
+        }
+        // add a bottom border
+        frame.append('\n');
+        frame.append("-".repeat(BOARD_WIDTH));
+        return frame.toString();
+    }
+    public String nextBoard() {
+        StringBuilder frame = new StringBuilder();
+
         frame.append("-".repeat(BOARD_WIDTH));
         // add each row of the board
         for (int r = 0; r < BOARD_HEIGHT; r++) {

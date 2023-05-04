@@ -2,7 +2,7 @@ package com.example.welovetetris;
 
 public class Board {
     final int NUM_ROWS = 20;
-    final int NUM_COLS = 10;
+    final int NUM_COLS = 20;
     int numLinesCleared;
     int totalPoints;
     boolean[][] board;
