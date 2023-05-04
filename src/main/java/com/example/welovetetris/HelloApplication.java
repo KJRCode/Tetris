@@ -121,36 +121,6 @@ public class HelloApplication extends Application {
     }
 
     // draw a board using BOARD_WIDTH, BOARD_HEIGHT, x, and y
-
-    /*
-    public String firstFrame() {
-        StringBuilder frame = new StringBuilder();
-        // add a top border
-        frame.append("-".repeat(BOARD_WIDTH));
-        // add each row of the board
-        for (int r = 0; r < BOARD_HEIGHT; r++) {
-            frame.append('\n');
-            // add a left border
-            frame.append('|');
-            // fill in this row (possibly including a frog)
-            for (int c = 0; c < BOARD_WIDTH; c++) {
-                if (r == 0 && c == x) {
-                    frame.append('F');
-                    board[r][c] = true;
-                } else {
-                    frame.append(' ');
-                }
-            }
-            // add a right border
-            frame.append('|');
-        }
-        // add a bottom border
-        frame.append('\n');
-        frame.append("-".repeat(BOARD_WIDTH));
-        return frame.toString();
-    }
-
-     */
     public String nextFrame() {
 
         char current = 'C';
