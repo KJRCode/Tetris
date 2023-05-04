@@ -47,4 +47,8 @@ public abstract class Pieces {
      * the shape of each of the pieces
      */
     public abstract void pieceShape();
+
+    public boolean[][] getPieceShape() {
+        return p;
+    }
 }

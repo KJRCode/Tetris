@@ -8,6 +8,12 @@ public class OneBlock extends Pieces{
     }
 
     public void pieceShape() {
-        //for (int i = 0; i < )
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                p[i][j] = false;
+            }
+        }
+
+        p[0][2] = true;
     }
 }

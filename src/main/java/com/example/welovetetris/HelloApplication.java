@@ -14,15 +14,11 @@ public class HelloApplication extends Application {
     public static final int BOARD_WIDTH = 20;
     public static final int BOARD_HEIGHT = 20;
     // set the starting position of the "frog"
-    private int x = 0; //BOARD_WIDTH/2;
-    private int y = 0; //BOARD_HEIGHT/2;
+    private int x = 0;
+    private int y = 0;
     Board b = new Board();
     boolean[][] board = b.getArray();
-
-    //CHANGE MADE - TRUE TO FALSE
     boolean pieceLanded = false;
-
-    //TRYING TO PUSH
 
     /**
      * Set up the starting scene of your application given the primaryStage (basically the window)
@@ -86,7 +82,7 @@ public class HelloApplication extends Application {
         primaryStage.show();
     }
 
-    // define simple move functions to change the value of x and y (frog location)
+    // define simple move functions to change the value of x and y
     public void moveDown() {
         if (y < BOARD_HEIGHT-1) {
             if (!board[y+1][x]) {
@@ -119,11 +115,13 @@ public class HelloApplication extends Application {
             }
         }
     }
+
     public String nextFrame() {
         if (!b.topRowIsEmpty()) {
             System.exit(0);
         }
 
+        //checks if any rows are empty and clears them if they are
         for (int i = 0; i < BOARD_HEIGHT; i++) {
             b.clearRow(i);
         }
@@ -138,7 +136,7 @@ public class HelloApplication extends Application {
             frame.append('\n');
             // add a left border
             frame.append('|');
-            // fill in this row (possibly including a frog)
+            // fill in this row
             for (int c = 0; c < BOARD_WIDTH; c++) {
                 //adding landed pieces
                 if (board[r][c]) {
