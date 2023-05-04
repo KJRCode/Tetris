@@ -1,7 +1,6 @@
 package com.example.welovetetris;
 import java.util.Map;
 
-
 /**
  * @author Winona Wherley
  * @author Karly Ripper
@@ -77,7 +76,6 @@ public class Board {
         }
         return  true;
     }
-
     public void updateScore() {
 
     }

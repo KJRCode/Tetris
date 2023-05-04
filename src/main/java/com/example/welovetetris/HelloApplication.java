@@ -95,7 +95,14 @@ public class HelloApplication extends Application {
                 pieceLanded = true;
                 board[y][x] = true;
                 x = 10;
+                y = 0;
             }
+        }
+        else {
+            pieceLanded = true;
+            board[y][x] = true;
+            x = 10;
+            y = 0;
         }
     }
     public void moveLeft() {
@@ -111,47 +118,15 @@ public class HelloApplication extends Application {
                 x += 1;
             }
         }
-
-        //TODO: MOVE ELSE STATEMENT TO moveDown WHEN THE METHOD IS FINISHED !!!
-        else {
-            pieceLanded = true;
-            board[y][x] = true;
-            x = 10;
-        }
     }
-
-    // draw a board using BOARD_WIDTH, BOARD_HEIGHT, x, and y
-
-    /*
-    public String firstFrame() {
-        StringBuilder frame = new StringBuilder();
-        // add a top border
-        frame.append("-".repeat(BOARD_WIDTH));
-        // add each row of the board
-        for (int r = 0; r < BOARD_HEIGHT; r++) {
-            frame.append('\n');
-            // add a left border
-            frame.append('|');
-            // fill in this row (possibly including a frog)
-            for (int c = 0; c < BOARD_WIDTH; c++) {
-                if (r == 0 && c == x) {
-                    frame.append('F');
-                    board[r][c] = true;
-                } else {
-                    frame.append(' ');
-                }
-            }
-            // add a right border
-            frame.append('|');
-        }
-        // add a bottom border
-        frame.append('\n');
-        frame.append("-".repeat(BOARD_WIDTH));
-        return frame.toString();
-    }
-
-     */
     public String nextFrame() {
+        if (!b.topRowIsEmpty()) {
+            System.exit(0);
+        }
+
+        for (int i = 0; i < BOARD_HEIGHT; i++) {
+            b.clearRow(i);
+        }
 
         char current = 'C';
 
