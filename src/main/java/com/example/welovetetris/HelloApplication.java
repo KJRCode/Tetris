@@ -1,5 +1,6 @@
 package com.example.welovetetris;
 import javafx.application.Application;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -53,6 +54,7 @@ public class HelloApplication extends Application {
         Font frameFont = new Font("Courier New", 20);
         frame.setFont(frameFont);
         frame.setTextAlignment(TextAlignment.CENTER);
+        frame.setFill(Color.ORCHID);
         // add this text field to the layout
         layout.setCenter(frame);
 
@@ -89,6 +91,8 @@ public class HelloApplication extends Application {
                 y += 1;
             } else {
                 pieceLanded = true;
+                board[y][x] = true;
+                x = 10;
             }
         }
     }
@@ -106,16 +110,17 @@ public class HelloApplication extends Application {
             }
         }
 
-        //TODO: MOVE ELSE TO moveDown WHEN THE METHOD IS FINISHED !!!
+        //TODO: MOVE ELSE STATEMENT TO moveDown WHEN THE METHOD IS FINISHED !!!
         else {
             pieceLanded = true;
             board[y][x] = true;
             x = 10;
-
         }
     }
 
     // draw a board using BOARD_WIDTH, BOARD_HEIGHT, x, and y
+
+    /*
     public String firstFrame() {
         StringBuilder frame = new StringBuilder();
         // add a top border
@@ -142,12 +147,14 @@ public class HelloApplication extends Application {
         frame.append("-".repeat(BOARD_WIDTH));
         return frame.toString();
     }
+
+     */
     public String nextFrame() {
 
         char current = 'C';
 
         StringBuilder frame = new StringBuilder();
-
+        frame.append("T E T R I S\n");
         frame.append("-".repeat(BOARD_WIDTH));
         // add each row of the board
         for (int r = 0; r < BOARD_HEIGHT; r++) {

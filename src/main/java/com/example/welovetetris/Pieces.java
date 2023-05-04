@@ -1,11 +1,23 @@
 package com.example.welovetetris;
 
+/**
+ * @author Winona Wherley
+ * @author Karly Ripper
+ *
+ * this is an abstract class that's extended by all of the different kinds of
+ * pieces that we'll need.
+ */
 public abstract class Pieces {
+
+    //setting up class variables
     protected boolean[][] p;
     protected char pChar;
     public Pieces(){
-
     }
+
+    /**
+     * rotates piece clockwise by 90 degrees
+     */
     public void turnPieceClockwise() {
         Boolean[][] pieceSpin = new Boolean[4][4];
 
@@ -21,11 +33,18 @@ public abstract class Pieces {
             }
         }
     }
+
+    //TODO: don't need moveLeft and moveRight methods anymore???
     public void moveLeft() {
 
     }
     public void moveRight() {
 
     }
+
+    /**
+     * abstract method
+     * the shape of each of the pieces
+     */
     public abstract void pieceShape();
 }
