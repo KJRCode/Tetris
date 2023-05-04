@@ -95,7 +95,7 @@ public class HelloApplication extends Application {
             frame.append('|');
             // fill in this row (possibly including a frog)
             for (int c = 0; c < BOARD_WIDTH; c++) {
-                if (r == y && c == x) {
+                if (r == 0 && c == x) {
                     frame.append('F');
                 } else {
                     frame.append(' ');
