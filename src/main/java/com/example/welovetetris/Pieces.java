@@ -21,6 +21,10 @@ public abstract class Pieces{
         coordinates.put(0, 11);
     }
 
+    /*
+    Piece will need a position
+     */
+
     /**
      * rotates piece clockwise by 90 degrees
      */
