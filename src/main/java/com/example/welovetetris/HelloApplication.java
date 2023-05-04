@@ -7,16 +7,19 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.input.KeyCode;
-//
 
 public class HelloApplication extends Application {
     // set the size of the board to be displayed
     public static final int BOARD_WIDTH = 20;
     public static final int BOARD_HEIGHT = 20;
     // set the starting position of the "frog"
-    private int x = BOARD_WIDTH/2;
-    private int y = BOARD_HEIGHT/2;
+    private int x = 0; //BOARD_WIDTH/2;
+    private int y = 0; //BOARD_HEIGHT/2;
     Board b = new Board();
+    boolean[][] board = b.getArray();
+
+    //CHANGE MADE - TRUE TO FALSE
+    boolean pieceLanded = false;
 
     /**
      * Set up the starting scene of your application given the primaryStage (basically the window)
@@ -46,7 +49,7 @@ public class HelloApplication extends Application {
 
         // create a new text node to display text on the interface
         // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/Text.html
-        Text frame = new Text(firstFrame());
+        Text frame = new Text(nextFrame());
         Font frameFont = new Font("Courier New", 20);
         frame.setFont(frameFont);
         frame.setTextAlignment(TextAlignment.CENTER);
@@ -63,15 +66,15 @@ public class HelloApplication extends Application {
             }
             else if (event.getCode().equals(KeyCode.DOWN)) {
                 moveDown();
-                frame.setText(firstFrame());
+                frame.setText(nextFrame());
             }
             else if (event.getCode().equals(KeyCode.LEFT)) {
                 moveLeft();
-                frame.setText(firstFrame());
+                frame.setText(nextFrame());
             }
             else if (event.getCode().equals(KeyCode.RIGHT)) {
                 moveRight();
-                frame.setText(firstFrame());
+                frame.setText(nextFrame());
             }
         });
 
@@ -80,9 +83,37 @@ public class HelloApplication extends Application {
     }
 
     // define simple move functions to change the value of x and y (frog location)
-    public void moveDown() { if (y < BOARD_HEIGHT-1) { y += 1; } }
-    public void moveLeft() { if (x > 0) { x -= 1; } }
-    public void moveRight() { if (x < BOARD_WIDTH-1) { x += 1; } }
+    public void moveDown() {
+        if (y < BOARD_HEIGHT-1) {
+            if (!board[y+1][x]) {
+                y += 1;
+            } else {
+                pieceLanded = true;
+            }
+        }
+    }
+    public void moveLeft() {
+        if (x > 0) {
+            if(!board[y][x-1]) {
+                x -= 1;
+            }
+        }
+    }
+    public void moveRight() {
+        if (x < BOARD_WIDTH-1) {
+            if(!board[y][x+1]) {
+                x += 1;
+            }
+        }
+
+        //TODO: MOVE ELSE TO moveDown WHEN THE METHOD IS FINISHED !!!
+        else {
+            pieceLanded = true;
+            board[y][x] = true;
+            x = 10;
+
+        }
+    }
 
     // draw a board using BOARD_WIDTH, BOARD_HEIGHT, x, and y
     public String firstFrame() {
@@ -98,6 +129,7 @@ public class HelloApplication extends Application {
             for (int c = 0; c < BOARD_WIDTH; c++) {
                 if (r == 0 && c == x) {
                     frame.append('F');
+                    board[r][c] = true;
                 } else {
                     frame.append(' ');
                 }
@@ -111,9 +143,8 @@ public class HelloApplication extends Application {
         return frame.toString();
     }
     public String nextFrame() {
-        boolean[][] board = b.getArray();
-        board[2][3] = true;
-        board[10][11] = true;
+
+        char current = 'C';
 
         StringBuilder frame = new StringBuilder();
 
@@ -125,10 +156,16 @@ public class HelloApplication extends Application {
             frame.append('|');
             // fill in this row (possibly including a frog)
             for (int c = 0; c < BOARD_WIDTH; c++) {
+                //adding landed pieces
                 if (board[r][c]) {
                     frame.append('F');
                 } else {
-                    frame.append(' ');
+                    //moving piece currently being played with
+                    if (r == y && c == x) {
+                        frame.append(current);
+                    } else {
+                        frame.append(' ');
+                    }
                 }
             }
             // add a right border
