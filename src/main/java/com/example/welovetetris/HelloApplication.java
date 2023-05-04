@@ -9,6 +9,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.input.KeyCode;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class HelloApplication extends Application {
     // set the size of the board to be displayed
     public static final int BOARD_WIDTH = 20;
@@ -77,6 +80,17 @@ public class HelloApplication extends Application {
                 frame.setText(nextFrame());
             }
         });
+
+        TimerTask falling = new TimerTask () {
+            @Override
+            public void run() {
+                moveDown();
+                frame.setText(nextFrame());
+            }
+        };
+
+        Timer time = new Timer();
+        time.scheduleAtFixedRate(falling, 2, 1000);
 
         // display the interface
         primaryStage.show();
