@@ -18,6 +18,10 @@ public class Board {
         totalPoints = 0;
     }
 
+    public boolean[][] getArray() {
+        return board;
+    }
+
     public void clearRow(int rowNum) {
         int counter = 0;
         for (int i = 0; i < NUM_COLS; i++) {

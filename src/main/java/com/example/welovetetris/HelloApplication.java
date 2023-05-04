@@ -16,6 +16,7 @@ public class HelloApplication extends Application {
     // set the starting position of the "frog"
     private int x = BOARD_WIDTH/2;
     private int y = BOARD_HEIGHT/2;
+    Board b = new Board();
 
     /**
      * Set up the starting scene of your application given the primaryStage (basically the window)
@@ -25,7 +26,6 @@ public class HelloApplication extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        Board b = new Board();
 
         // Add a title to the application window
         primaryStage.setTitle("Hello World!");
@@ -80,7 +80,6 @@ public class HelloApplication extends Application {
     }
 
     // define simple move functions to change the value of x and y (frog location)
-    public void moveUp() { if (y > 0) { y -= 1; } }
     public void moveDown() { if (y < BOARD_HEIGHT-1) { y += 1; } }
     public void moveLeft() { if (x > 0) { x -= 1; } }
     public void moveRight() { if (x < BOARD_WIDTH-1) { x += 1; } }
@@ -111,7 +110,11 @@ public class HelloApplication extends Application {
         frame.append("-".repeat(BOARD_WIDTH));
         return frame.toString();
     }
-    public String nextBoard() {
+    public String nextFrame() {
+        boolean[][] board = b.getArray();
+        board[2][3] = true;
+        board[10][11] = true;
+
         StringBuilder frame = new StringBuilder();
 
         frame.append("-".repeat(BOARD_WIDTH));
@@ -122,7 +125,7 @@ public class HelloApplication extends Application {
             frame.append('|');
             // fill in this row (possibly including a frog)
             for (int c = 0; c < BOARD_WIDTH; c++) {
-                if (r == 0 && c == x) {
+                if (board[r][c]) {
                     frame.append('F');
                 } else {
                     frame.append(' ');
