@@ -88,7 +88,6 @@ public class HelloApplication extends Application {
 
     // define simple move functions to change the value of x and y (frog location)
     public void moveDown() {
-        checkRows();
         if (y < BOARD_HEIGHT-1) {
             if (!board[y+1][x]) {
                 y += 1;
@@ -96,18 +95,10 @@ public class HelloApplication extends Application {
                 pieceLanded = true;
                 board[y][x] = true;
                 x = 10;
-                y = 0;
             }
-        }
-        else {
-            pieceLanded = true;
-            board[y][x] = true;
-            x = 10;
-            y = 0;
         }
     }
     public void moveLeft() {
-        checkRows();
         if (x > 0) {
             if(!board[y][x-1]) {
                 x -= 1;
@@ -115,27 +106,52 @@ public class HelloApplication extends Application {
         }
     }
     public void moveRight() {
-        checkRows();
         if (x < BOARD_WIDTH-1) {
             if(!board[y][x+1]) {
                 x += 1;
             }
         }
-    }
 
-    //checks if row is empty and clears it if it is
-    public void checkRows() {
-        for (int i = 0; i < BOARD_HEIGHT; i++) {
-            b.clearRow(i);
+        //TODO: MOVE ELSE STATEMENT TO moveDown WHEN THE METHOD IS FINISHED !!!
+        else {
+            pieceLanded = true;
+            board[y][x] = true;
+            x = 10;
         }
     }
 
     // draw a board using BOARD_WIDTH, BOARD_HEIGHT, x, and y
 
-    public String nextFrame() {
-        if (!b.topRowIsEmpty()) {
-            System.exit(0);
+    /*
+    public String firstFrame() {
+        StringBuilder frame = new StringBuilder();
+        // add a top border
+        frame.append("-".repeat(BOARD_WIDTH));
+        // add each row of the board
+        for (int r = 0; r < BOARD_HEIGHT; r++) {
+            frame.append('\n');
+            // add a left border
+            frame.append('|');
+            // fill in this row (possibly including a frog)
+            for (int c = 0; c < BOARD_WIDTH; c++) {
+                if (r == 0 && c == x) {
+                    frame.append('F');
+                    board[r][c] = true;
+                } else {
+                    frame.append(' ');
+                }
+            }
+            // add a right border
+            frame.append('|');
         }
+        // add a bottom border
+        frame.append('\n');
+        frame.append("-".repeat(BOARD_WIDTH));
+        return frame.toString();
+    }
+
+     */
+    public String nextFrame() {
 
         char current = 'C';
 
