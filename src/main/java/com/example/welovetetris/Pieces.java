@@ -1,5 +1,8 @@
 package com.example.welovetetris;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Winona Wherley
  * @author Karly Ripper
@@ -7,12 +10,15 @@ package com.example.welovetetris;
  * this is an abstract class that's extended by all of the different kinds of
  * pieces that we'll need.
  */
-public abstract class Pieces {
+public abstract class Pieces{
 
     //setting up class variables
     protected boolean[][] p;
     protected char pChar;
     public Pieces(){
+        Map<Integer, Integer> coordinates = new HashMap<>();
+        coordinates.put(0, 10);
+        coordinates.put(0, 11);
     }
 
     /**

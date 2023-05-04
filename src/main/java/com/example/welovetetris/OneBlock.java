@@ -3,7 +3,7 @@ package com.example.welovetetris;
 public class OneBlock extends Pieces{
     public OneBlock() {
         super();
-        super.pChar = '1';
+        super.pChar = 'Y';
         super.p = new boolean[4][4];
     }
 

@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.input.KeyCode;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -84,6 +85,7 @@ public class HelloApplication extends Application {
             }
         });
 
+        //makes the piece fall every second
         TimerTask falling = new TimerTask () {
             @Override
             public void run() {
@@ -175,6 +177,15 @@ public class HelloApplication extends Application {
         frame.append("-".repeat(BOARD_WIDTH));
         return frame.toString();
     }
+
+    /*
+    public int getXCo(){
+
+    }
+
+     */
+
+
     public static void main(String[] args) {
         launch();
     }
