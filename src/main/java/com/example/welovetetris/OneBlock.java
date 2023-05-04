@@ -3,17 +3,12 @@ package com.example.welovetetris;
 public class OneBlock extends Pieces{
     public OneBlock() {
         super();
-        super.pChar = 'Y';
-        super.p = new boolean[4][4];
+        r = 0;
+        c = 10;
+        mask[0][0] = true;
+        mask[1][0] = true;
+
     }
 
-    public void pieceShape() {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                p[i][j] = false;
-            }
-        }
 
-        p[0][2] = true;
-    }
 }

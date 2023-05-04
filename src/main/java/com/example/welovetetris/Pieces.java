@@ -1,5 +1,6 @@
 package com.example.welovetetris;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,13 +14,26 @@ import java.util.Map;
 public abstract class Pieces{
 
     //setting up class variables
-    protected boolean[][] p;
-    protected char pChar;
-    public Pieces(){
-        Map<Integer, Integer> coordinates = new HashMap<>();
-        coordinates.put(0, 10);
-        coordinates.put(0, 11);
+    protected Boolean[][] mask;
+    protected int r;
+    protected int c;
+
+    public Pieces() {
+        mask = new Boolean[4][4];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                mask[i][j] = false;
+            }
+
+        }
     }
+
+    public boolean occupies(int first, int second) {
+        return mask[first][second];
+    }
+
+    public int getR() { return r;}
+    public int getC() { return c;}
 
     /*
     Piece will need a position
@@ -29,19 +43,6 @@ public abstract class Pieces{
      * rotates piece clockwise by 90 degrees
      */
     public void turnPieceClockwise() {
-        Boolean[][] pieceSpin = new Boolean[4][4];
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                pieceSpin[j][3-i] = p[i][j];
-            }
-        }
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                p[i][j] = pieceSpin[i][j];
-            }
-        }
     }
 
     //TODO: don't need moveLeft and moveRight methods anymore???
@@ -56,9 +57,4 @@ public abstract class Pieces{
      * abstract method
      * the shape of each of the pieces
      */
-    public abstract void pieceShape();
-
-    public boolean[][] getPieceShape() {
-        return p;
-    }
 }

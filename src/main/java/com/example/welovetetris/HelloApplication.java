@@ -21,6 +21,7 @@ public class HelloApplication extends Application {
     private int x = 0;
     private int y = 0;
     Board b = new Board();
+    Pieces oneB = new OneBlock();
     boolean[][] board = b.getArray();
     boolean pieceLanded = false;
 
@@ -159,12 +160,28 @@ public class HelloApplication extends Application {
             for (int c = 0; c < BOARD_WIDTH; c++) {
                 //adding landed pieces
                 if (board[r][c]) {
-                    frame.append('F');
+                    for (int i = 0; i < 4; i++) {
+                        for (int j = 0; j < 4; j++) {
+                            if(oneB.occupies(i, j)) {
+                                frame.append('F');
+                            }
+                        }
+                    }
+
+                    //frame.append('F');
                 } else {
                     //moving piece currently being played with
                     if (r == y && c == x) {
-                        frame.append(current);
-                    } else {
+                        for (int i = 0; i < 4; i++) {
+                            for (int j = 0; j < 4; j++) {
+                                if(oneB.occupies(i, j)) {
+                                    frame.append(current);
+                                }
+                            }
+                        }
+
+                    }
+                    else {
                         frame.append(' ');
                     }
                 }
@@ -177,14 +194,6 @@ public class HelloApplication extends Application {
         frame.append("-".repeat(BOARD_WIDTH));
         return frame.toString();
     }
-
-    /*
-    public int getXCo(){
-
-    }
-
-     */
-
 
     public static void main(String[] args) {
         launch();
