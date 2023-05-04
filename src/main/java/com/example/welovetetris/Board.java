@@ -35,6 +35,8 @@ public class Board {
 
     public void clearRow(int rowNum) {
         int counter = 0;
+        boolean[][] temp = new boolean[NUM_ROWS][NUM_COLS];
+
         for (int i = 0; i < NUM_COLS; i++) {
             if (!board[rowNum][i]) {
                 return;
@@ -45,14 +47,18 @@ public class Board {
             board[rowNum][i] = false;
         }
         numLinesCleared++;
-    }
 
-    public void moveRowsDown() {
+        for (int i = rowNum+1; i >= 2; i--) {
+            for (int j = 0; j < NUM_COLS; j++) {
+                temp[i-1][j] = board[i-2][j];
+            }
+        }
 
-    }
-
-    public boolean rowFull(int num) {
-        return false;
+        for (int i = rowNum; i >= 0; i--) {
+            for (int j = 0; j < NUM_COLS; j++) {
+                board[i][j] = temp[i][j];
+            }
+        }
     }
 
     public boolean rowEmpty(int num) {
@@ -63,8 +69,13 @@ public class Board {
         return false;
     }
 
-    public boolean topRowIsntEmpty() {
-        return false;
+    public boolean topRowIsEmpty() {
+        for (int i = 0; i < NUM_COLS; i++) {
+            if (board[0][i]) {
+                return false;
+            }
+        }
+        return  true;
     }
 
     public void updateScore() {
