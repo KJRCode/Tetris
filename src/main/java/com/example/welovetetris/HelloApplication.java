@@ -167,6 +167,10 @@ public class HelloApplication extends Application {
                             }
                         }
                     }
+                    //I think that we need to be replacing things, and we are adding them instead
+                    //we aren't adding extra spaces, we are adding extra letters to a board with the same amount of spaces as before
+                    //so a line that used to have 19 spaces plus a letter now has 19 spaces plus 2 letters
+                    //thus, it looks like spaces have been added, but really we just need to replace spaces with letters, get it?
 
                     //frame.append('F');
                 } else {
