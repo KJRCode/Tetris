@@ -159,9 +159,9 @@ public class HelloApplication extends Application {
             // fill in this row
             for (int c = 0; c < BOARD_WIDTH; c++) {
                 //adding landed pieces
-                if (board[r][c]) {
+                if (board[r][c]) {//we stop at the upper left corner and draw the whole piece
                     for (int i = 0; i < 4; i++) {
-                        for (int j = 0; j < 4; j++) {
+                        for (int j = 0; j < 4; j++) {//can we do it without the for loops and just draw a letter at a time instead of drawing a group at a time?
                             if(oneB.occupies(i, j)) {
                                 frame.append('F');
                             }
@@ -183,7 +183,6 @@ public class HelloApplication extends Application {
                                 }
                             }
                         }
-
                     }
                     else {
                         frame.append(' ');
