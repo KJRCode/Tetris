@@ -137,6 +137,8 @@ public class HelloApplication extends Application {
     }
 
     public String nextFrame() {
+        int squareCounter = 1;
+
         if (!b.topRowIsEmpty()) {
             System.exit(0);
         }
@@ -151,7 +153,9 @@ public class HelloApplication extends Application {
         StringBuilder frame = new StringBuilder();
         frame.append("T E T R I S\n");
         frame.append("-".repeat(BOARD_WIDTH));
+
         // add each row of the board
+
         for (int r = 0; r < BOARD_HEIGHT; r++) {
             frame.append('\n');
             // add a left border
@@ -183,6 +187,7 @@ public class HelloApplication extends Application {
                                 }
                             }
                         }
+
                     }
                     else {
                         frame.append(' ');
