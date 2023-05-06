@@ -33,9 +33,6 @@ public class Board {
         totalPoints = 0;
     }
 
-    public int getX() { return x;}
-    public int getY() { return y;}
-
     public boolean[][] getArray() {
         return board;
     }
@@ -68,14 +65,6 @@ public class Board {
         }
     }
 
-    public boolean rowEmpty(int num) {
-        return false;
-    }
-
-    public boolean spaceEmpty(int row, int col) {
-        return false;
-    }
-
     public boolean topRowIsEmpty() {
         for (int i = 0; i < NUM_COLS; i++) {
             if (board[0][i]) {
@@ -84,6 +73,7 @@ public class Board {
         }
         return  true;
     }
+
     public void moveDown() {
         if (y < NUM_ROWS-1) {
             if (!board[y+1][x]) {
@@ -109,7 +99,6 @@ public class Board {
             }
         }
     }
-
     public void moveRight() {
         if (x < NUM_COLS-1) {
             if(!board[y][x+1]) {
@@ -127,7 +116,6 @@ public class Board {
         frame.append("-".repeat(NUM_COLS));
 
         // add each row of the board
-
         for (int r = 0; r < NUM_ROWS; r++) {
             frame.append('\n');
             // add a left border
