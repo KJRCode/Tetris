@@ -1,5 +1,4 @@
 package com.example.welovetetris;
-import java.util.Map;
 
 /**
  * @author Winona Wherley
@@ -84,9 +83,7 @@ public class Board {
 
     public void moveDown() {
         if (y < NUM_ROWS-1) {
-            if (!board[y+1][x] && !currentBoard[y+1][x]
-            && !board[y+1][x+1] && !currentBoard[y+1][x+2]
-            && !board[y+1][x+2] && !currentBoard[y+1][x+2]) {
+            if (!lowestPiece()) {
                 //pieceChange(currentBoard, 1, 0);
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
@@ -122,7 +119,7 @@ public class Board {
     }
     public void moveLeft() {
         if (x > 0) {
-            if(!board[y-1][x-1]) {
+            if(!leftmostPiece()) {
                 //pieceChange(currentBoard, 0, -1);
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
@@ -131,19 +128,12 @@ public class Board {
                 currentBoard[y][x] = true;
                 currentBoard[y][x+1] = true;
                 currentBoard[y][x+2] =  true;
-
-                /*
-                currentBoard[y][x] = false;
-                x -= 1;
-                currentBoard[y][x] = true;
-
-                 */
             }
         }
     }
     public void moveRight() {
         if (x < NUM_COLS-1-2) { //-2 is number of squares after the first one
-            if(!board[y][x+1+2]) {
+            if (!rightmostPiece()) {
                 //pieceChange(currentBoard, 0, 1);
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
@@ -152,13 +142,6 @@ public class Board {
                 currentBoard[y][x] = true;
                 currentBoard[y][x+1] = true;
                 currentBoard[y][x+2] =  true;
-
-                /*
-                currentBoard[y][x] = false;
-                x += 1;
-                currentBoard[y][x] = true;
-
-                 */
             }
         }
     }
@@ -178,25 +161,10 @@ public class Board {
             frame.append('|');
             // fill in this row
             for (int c = 0; c < NUM_COLS; c++) {
-                //adding landed pieces
-                //frame.append(' ');
-
                 if (board[r][c] || currentBoard[r][c]) {//we stop in the upper left corner and draw the whole piece
                     frame.append("C");
-                    //addLandedPieces(frame);
                 } else {
                     frame.append(' ');
-                    /*
-                    //moving piece currently being played with
-                    if (r == y && c == x) {
-                        frame.append("C");
-                        //addCurrentPiece(frame);
-                    }
-                    else if (!currentBoard[r][c]){
-                        //frame.append(' ');
-
-
-                    }*/
                 }
             }
             // add a right border
@@ -208,42 +176,36 @@ public class Board {
         return frame.toString();
     }
 
-    public void addLandedPieces(StringBuilder frame) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {//can we do it without the for loops and just draw a letter at a time instead of drawing a group at a time?
-                if (oneB.occupies(i, j)) {
-                    //board[i+y][j+x] = true;
-                    frame.append('F');
-                }
+    public boolean lowestPiece() {
+        for (int c = 0; c < 3; c++) {
+            for (int r = 0; r < 3; r++) {
+                    if (board[y + 1][x + c] || currentBoard[y + 1][x + c]) {
+                        return true;
+                    }
             }
         }
+        return false;
     }
 
-    public void addCurrentPiece(StringBuilder frame) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (oneB.occupies(i, j)) {
-                    currentBoard[i][j] = true;
-                    frame.append(current);
+    public boolean rightmostPiece() {
+        for (int c = 0; c < 3; c++) {
+            for (int r = 0; r < 3; r++) {
+                if (board[y + r][x + 3] || currentBoard[y + r][x + 3]) {
+                    return true;
                 }
             }
         }
+        return false;
     }
 
-    public void pieceChange(boolean[][] b, int dY, int dX) {
-        for (int i = 0; i < NUM_ROWS; i++) {
-            for (int j = 0; j < NUM_COLS; j++) {
-                b[i][j] = false;
-                if ((i + dY < 20) && (j + dX < 20) && (i + dY >= 0) && (j + dX >= 0)) {
-                    b[i + dY][j + dX] = currentBoard[i][j];
+    public boolean leftmostPiece() {
+        for (int c = 0; c < 3; c++) {
+            for (int r = 0; r < 3; r++) {
+                if (board[y + r][x - 1] || currentBoard[y + r][x - 1]) {
+                    return true;
                 }
             }
         }
-        for (int i = 0; i < NUM_ROWS; i++) {
-            for (int j = 0; j < NUM_COLS; j++) {
-                currentBoard[i][j] = b[i][j];
-            }
-        }
-
+        return false;
     }
 }
