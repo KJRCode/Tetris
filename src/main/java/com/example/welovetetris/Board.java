@@ -1,5 +1,9 @@
 package com.example.welovetetris;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 /**
  * @author Winona Wherley
  * @author Karly Ripper
@@ -21,6 +25,9 @@ public class Board {
     private boolean pieceLanded = false;
     private char current = 'C';
     private Pieces oneB = new OneBlock();
+
+    private Map<Integer, Pieces> randPieces = new HashMap<>();
+    //private rand = new Random();
 
     public Board() {
         board = new boolean[NUM_ROWS][NUM_COLS];
@@ -190,7 +197,7 @@ public class Board {
     public boolean rightmostPiece() {
         for (int c = 0; c < 3; c++) {
             for (int r = 0; r < 3; r++) {
-                if (board[y + r][x + 3] || currentBoard[y + r][x + 3]) {
+                if (board[y][x + 3] || currentBoard[y][x + 3]) {
                     return true;
                 }
             }
@@ -201,7 +208,7 @@ public class Board {
     public boolean leftmostPiece() {
         for (int c = 0; c < 3; c++) {
             for (int r = 0; r < 3; r++) {
-                if (board[y + r][x - 1] || currentBoard[y + r][x - 1]) {
+                if (board[y][x - 1] || currentBoard[y][x - 1]) {
                     return true;
                 }
             }
