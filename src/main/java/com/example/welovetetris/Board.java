@@ -15,7 +15,8 @@ public class Board {
     final int NUM_COLS = 20;
     int numLinesCleared;
     int totalPoints;
-    boolean[][] board;
+   public boolean[][] board;
+    public boolean[][] currentBoard;
     private int x = 0;
     private int y = 0;
     private boolean pieceLanded = false;
@@ -24,11 +25,15 @@ public class Board {
 
     public Board() {
         board = new boolean[NUM_ROWS][NUM_COLS];
+        currentBoard = new boolean[NUM_ROWS][NUM_COLS];
+
         for (int i = 0; i < NUM_ROWS; i++) {
             for (int j = 0; j < NUM_COLS; j++) {
                 board[i][j] = false;
+                currentBoard[i][j] = false;
             }
         }
+
         numLinesCleared = 0;
         totalPoints = 0;
     }
@@ -77,7 +82,9 @@ public class Board {
     public void moveDown() {
         if (y < NUM_ROWS-1) {
             if (!board[y+1][x]) {
+                currentBoard[y][x] = false;
                 y += 1;
+                currentBoard[y][x] = true;
             } else {
                 pieceLanded = true;
                 board[y][x] = true;
@@ -94,15 +101,19 @@ public class Board {
     }
     public void moveLeft() {
         if (x > 0) {
-            if(!board[y][x-1]) {
+            if(!board[y-1][x-1]) {
+                currentBoard[y][x] = false;
                 x -= 1;
+                currentBoard[y][x] = true;
             }
         }
     }
     public void moveRight() {
-        if (x < NUM_COLS-1) {
+        if (x < NUM_COLS-1-2) { //-2 is number of squares after the first one
             if(!board[y][x+1]) {
+                currentBoard[y][x] = false;
                 x += 1;
+                currentBoard[y][x] = true;
             }
         }
     }
@@ -123,41 +134,17 @@ public class Board {
             // fill in this row
             for (int c = 0; c < NUM_COLS; c++) {
                 //adding landed pieces
+                frame.append(' ');
+
                 if (board[r][c]) {//we stop in the upper left corner and draw the whole piece
                     addLandedPieces(frame);
-                    /*
-                    for (int i = 0; i < 4; i++) {
-                        for (int j = 0; j < 4; j++) {//can we do it without the for loops and just draw a letter at a time instead of drawing a group at a time?
-                            if(oneB.occupies(i, j)) {
-                                frame.append('F');
-                            }
-                        }
-                    }
-
-                     */
-                    //I think that we need to be replacing things, and we are adding them instead
-                    //we aren't adding extra spaces, we are adding extra letters to a board with the same amount of spaces as before
-                    //so a line that used to have 19 spaces plus a letter now has 19 spaces plus 2 letters
-                    //thus, it looks like spaces have been added, but really we just need to replace spaces with letters, get it?
-
-                    //frame.append('F');
                 } else {
                     //moving piece currently being played with
                     if (r == y && c == x) {
-                        /*
-                        for (int i = 0; i < 4; i++) {
-                            for (int j = 0; j < 4; j++) {
-                                if(oneB.occupies(i, j)) {
-                                    frame.append(current);
-                                }
-                            }
-                        }
-
-                         */
-                        addCurrentPiece(frame);
+                        addCurrentPiece(frame, x, y);
                     }
-                    else {
-                        frame.append(' ');
+                    else if (!currentBoard[r][c]){
+                        //frame.append(' ');
                     }
                 }
             }
@@ -173,14 +160,14 @@ public class Board {
     public void addLandedPieces(StringBuilder frame) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {//can we do it without the for loops and just draw a letter at a time instead of drawing a group at a time?
-                if(oneB.occupies(i, j)) {
+                if (oneB.occupies(i, j)) {
                     frame.append('F');
                 }
             }
         }
     }
 
-    public void addCurrentPiece(StringBuilder frame) {
+    public void addCurrentPiece(StringBuilder frame, int x, int y) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if(oneB.occupies(i, j)) {
