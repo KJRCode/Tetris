@@ -141,7 +141,7 @@ public class Board {
                 } else {
                     //moving piece currently being played with
                     if (r == y && c == x) {
-                        addCurrentPiece(frame, x, y);
+                        addCurrentPiece(frame);
                     }
                     else if (!currentBoard[r][c]){
                         //frame.append(' ');
@@ -161,16 +161,18 @@ public class Board {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {//can we do it without the for loops and just draw a letter at a time instead of drawing a group at a time?
                 if (oneB.occupies(i, j)) {
+                    //board[i+y][j+x] = true;
                     frame.append('F');
                 }
             }
         }
     }
 
-    public void addCurrentPiece(StringBuilder frame, int x, int y) {
+    public void addCurrentPiece(StringBuilder frame) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if(oneB.occupies(i, j)) {
+                if (oneB.occupies(i, j)) {
+                    currentBoard[i][j] = true;
                     frame.append(current);
                 }
             }
