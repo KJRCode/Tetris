@@ -17,13 +17,13 @@ public class HelloApplication extends Application {
     // set the size of the board to be displayed
     public static final int BOARD_WIDTH = 20;
     public static final int BOARD_HEIGHT = 20;
-    // set the starting position of the "frog"
-    private int x = 0;
-    private int y = 0;
+
+    //private int x = 0;
+    //private int y = 0;
     Board b = new Board();
-    Pieces oneB = new OneBlock();
+    //Pieces oneB = new OneBlock();
     boolean[][] board = b.getArray();
-    boolean pieceLanded = false;
+    //boolean pieceLanded = false;
 
     /**
      * Set up the starting scene of your application given the primaryStage (basically the window)
@@ -73,15 +73,15 @@ public class HelloApplication extends Application {
                 System.exit(0);
             }
             else if (event.getCode().equals(KeyCode.DOWN)) {
-                moveDown();
+                b.moveDown();
                 frame.setText(nextFrame());
             }
             else if (event.getCode().equals(KeyCode.LEFT)) {
-                moveLeft();
+                b.moveLeft();
                 frame.setText(nextFrame());
             }
             else if (event.getCode().equals(KeyCode.RIGHT)) {
-                moveRight();
+                b.moveRight();
                 frame.setText(nextFrame());
             }
         });
@@ -90,7 +90,7 @@ public class HelloApplication extends Application {
         TimerTask falling = new TimerTask () {
             @Override
             public void run() {
-                moveDown();
+                b.moveDown();
                 frame.setText(nextFrame());
             }
         };
@@ -103,6 +103,8 @@ public class HelloApplication extends Application {
     }
 
     // define simple move functions to change the value of x and y
+    //delete these comments? should be fine, but I'm just scared to commit to it
+    /*
     public void moveDown() {
         if (y < BOARD_HEIGHT-1) {
             if (!board[y+1][x]) {
@@ -121,6 +123,9 @@ public class HelloApplication extends Application {
             y = 0;
         }
     }
+
+     */
+    /*
     public void moveLeft() {
         if (x > 0) {
             if(!board[y][x-1]) {
@@ -128,6 +133,9 @@ public class HelloApplication extends Application {
             }
         }
     }
+
+     */
+    /*
     public void moveRight() {
         if (x < BOARD_WIDTH-1) {
             if(!board[y][x+1]) {
@@ -135,6 +143,8 @@ public class HelloApplication extends Application {
             }
         }
     }
+
+     */
 
     public String nextFrame() {
         int squareCounter = 1;
@@ -148,6 +158,7 @@ public class HelloApplication extends Application {
             b.clearRow(i);
         }
 
+        /*
         char current = 'C';
 
         StringBuilder frame = new StringBuilder();
@@ -163,7 +174,7 @@ public class HelloApplication extends Application {
             // fill in this row
             for (int c = 0; c < BOARD_WIDTH; c++) {
                 //adding landed pieces
-                if (board[r][c]) {//we stop at the upper left corner and draw the whole piece
+                if (board[r][c]) {//we stop in the upper left corner and draw the whole piece
                     for (int i = 0; i < 4; i++) {
                         for (int j = 0; j < 4; j++) {//can we do it without the for loops and just draw a letter at a time instead of drawing a group at a time?
                             if(oneB.occupies(i, j)) {
@@ -179,7 +190,7 @@ public class HelloApplication extends Application {
                     //frame.append('F');
                 } else {
                     //moving piece currently being played with
-                    if (r == y && c == x) {
+                    if (r == b.getY() && c == b.getX()) {
                         for (int i = 0; i < 4; i++) {
                             for (int j = 0; j < 4; j++) {
                                 if(oneB.occupies(i, j)) {
@@ -200,7 +211,11 @@ public class HelloApplication extends Application {
         // add a bottom border
         frame.append('\n');
         frame.append("-".repeat(BOARD_WIDTH));
+
         return frame.toString();
+
+         */
+        return b.makeFrame();
     }
 
     public static void main(String[] args) {
