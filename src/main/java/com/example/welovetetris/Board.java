@@ -18,7 +18,7 @@ public class Board {
     final int NUM_COLS = 20;
     int numLinesCleared;
     int totalPoints;
-   public boolean[][] board;
+    public boolean[][] board;
     public boolean[][] currentBoard;
     private int x = 0;
     private int y = 0;
@@ -28,6 +28,9 @@ public class Board {
     //setting up the Map of pieces
     private Map <Integer, Pieces> randPieces = new HashMap<>();
     private Random rand = new Random();
+
+    //can delete this later
+    Pieces piece = new OneBlock();
 
     public Board() {
         Pieces p = makePiece();
@@ -92,7 +95,6 @@ public class Board {
     public void moveDown() {
         if (y < NUM_ROWS-1) {
             if (!lowestPiece()) {
-                //pieceChange(currentBoard, 1, 0);
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
                 currentBoard[y][x+2] =  false;
@@ -101,6 +103,7 @@ public class Board {
                 currentBoard[y][x+1] = true;
                 currentBoard[y][x+2] =  true;
 
+                //positionChange(0, 1, x, y);
             } else {
                 pieceLanded = true;
                 board[y][x] = true;
@@ -215,6 +218,39 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public void positionChange(int dx, int dy, int x, int y) {
+        /*
+                currentBoard[y][x] = false;
+                currentBoard[y][x+1] = false;
+                currentBoard[y][x+2] =  false;
+                y += 1;
+                currentBoard[y][x] = true;
+                currentBoard[y][x+1] = true;
+                currentBoard[y][x+2] =  true;
+         */
+
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if(piece.occupies(i, j)) {
+                    currentBoard[j+y][i+x] = false;
+                }
+            }
+        }
+
+        y += dy;
+        x += dx;
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if(piece.occupies(i, j)) {
+                    //board[i+y][j+x] = true;
+                    currentBoard[j+y][i+x] = true;
+                }
+            }
+        }
     }
 
     public Pieces makePiece(){
