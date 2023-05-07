@@ -13,6 +13,13 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * @author Winona Wherley
+ * @author Karly Ripper
+ *
+ * This class creates a Board object and uses the Board to create and run a GUI so that our
+ * Tetris game can actually be played by people.
+ */
 public class HelloApplication extends Application {
     public static final int BOARD_HEIGHT = 20;
     Board b = new Board();
@@ -97,8 +104,14 @@ public class HelloApplication extends Application {
         primaryStage.show();
     }
 
+    /**
+     * ends the game if a piece reaches the top
+     * otherwise, clears any full rows and makes a new frame to keep the game going
+     * @return the String of the current frame
+     */
     public String nextFrame() {
 
+        //ends game if a piece has reached the top
         if (!b.topRowIsEmpty()) {
             System.exit(0);
         }

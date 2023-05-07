@@ -18,6 +18,10 @@ public abstract class Pieces{
     protected int r;
     protected int c;
 
+    /**
+     * The constructor for the Pieces class.  Initializes the mask list and sets all of its
+     * squares to false.
+     */
     public Pieces() {
         mask = new Boolean[4][4];
         for (int i = 0; i < 4; i++) {
@@ -28,6 +32,12 @@ public abstract class Pieces{
         }
     }
 
+    /**
+     * checks if a certain square of mask is true or false
+     * @param first the x coordinate
+     * @param second the y coordinate
+     * @return true if mask[first][second] is true
+     */
     public boolean occupies(int first, int second) {
         return mask[first][second];
     }
@@ -43,14 +53,6 @@ public abstract class Pieces{
      * rotates piece clockwise by 90 degrees
      */
     public void turnPieceClockwise() {
-    }
-
-    //TODO: don't need moveLeft and moveRight methods anymore???
-    public void moveLeft() {
-
-    }
-    public void moveRight() {
-
     }
 
     /**
