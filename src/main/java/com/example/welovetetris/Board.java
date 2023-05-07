@@ -24,12 +24,13 @@ public class Board {
     private int y = 0;
     private boolean pieceLanded = false;
     private char current = 'C';
-    private Pieces oneB = new OneBlock();
 
-    private Map<Integer, Pieces> randPieces = new HashMap<>();
-    //private rand = new Random();
+    //setting up the Map of pieces
+    private Map <Integer, Pieces> randPieces = new HashMap<>();
+    private Random rand = new Random();
 
     public Board() {
+        Pieces p = makePiece();
         board = new boolean[NUM_ROWS][NUM_COLS];
         currentBoard = new boolean[NUM_ROWS][NUM_COLS];
 
@@ -214,5 +215,15 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public Pieces makePiece(){
+        Pieces oneB = new OneBlock();
+        Pieces jB = new JBlock();
+
+        randPieces.put(1, oneB);
+        randPieces.put(2, jB);
+
+        return randPieces.get(rand.nextInt(2)+1);
     }
 }
