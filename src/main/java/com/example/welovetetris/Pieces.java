@@ -17,6 +17,8 @@ public abstract class Pieces{
     protected Boolean[][] mask;
     protected int r;
     protected int c;
+    protected int width;
+    protected int height;
 
     /**
      * The constructor for the Pieces class.  Initializes the mask list and sets all of its

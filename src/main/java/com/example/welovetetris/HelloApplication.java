@@ -120,6 +120,7 @@ public class HelloApplication extends Application {
         for (int i = 0; i < BOARD_HEIGHT; i++) {
             b.clearRow(i);
         }
+
         return b.makeFrame();
     }
 

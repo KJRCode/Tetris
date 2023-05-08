@@ -42,6 +42,8 @@ public class Board {
     public Board() {
         board = new boolean[NUM_ROWS][NUM_COLS];
         currentBoard = new boolean[NUM_ROWS][NUM_COLS];
+
+        //get random piece here instead of oneBlock
         p = new OneBlock();
 
         for (int i = 0; i < NUM_ROWS; i++) {
@@ -115,13 +117,15 @@ public class Board {
      * Moves the current piece down by one row
      */
     public void moveDown() {
-        if (y < NUM_ROWS-1) {
+        if (y < NUM_ROWS-p.height) {
             if (!lowestPiece()) {
+                /*
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
                 currentBoard[y][x+2] =  false;
                 currentBoard[y][x+3] =  false;
 
+                 */
                 /*
                 for (int i = 0; i < 4; i++){
                     x += i;
@@ -131,6 +135,7 @@ public class Board {
                     }
                 }
                  */
+                /*
 
                 y += 1;
 
@@ -139,23 +144,38 @@ public class Board {
                 currentBoard[y][x+2] =  true;
                 currentBoard[y][x+3] =  true;
 
-                //positionChange(0, 1, x, y);
+                 */
+
+                positionChange(0, 1, currentBoard, true);
             } else {
                 pieceLanded = true;
+                positionChange(0,0,board, true);
+                /*
                 board[y][x] = true;
                 board[y][x+1] = true;
                 board[y][x+2] =  true;
                 board[y][x+3] =  true;
+
+                 */
+                /*
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
                 currentBoard[y][x+2] =  false;
                 currentBoard[y][x+3] =  false;
+
+                 */
+                positionChange(0,0,currentBoard, false);
+
                 x = 10;
                 y = 0;
             }
         }
         else {
+            positionChange(0,0,board, true);
+            positionChange(0,0,currentBoard, true);
+
             pieceLanded = true;
+            /*
             board[y][x] = true;
             board[y][x+1] = true;
             board[y][x+2] =  true;
@@ -164,6 +184,8 @@ public class Board {
             currentBoard[y][x+1] = true;
             currentBoard[y][x+2] =  true;
             currentBoard[y][x+3] =  true;
+
+             */
             x = 10;
             y = 0;
         }
@@ -176,6 +198,8 @@ public class Board {
         if (x > 0) {
             if(!leftmostPiece()) {
                 //pieceChange(currentBoard, 0, -1);
+
+                /*
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
                 currentBoard[y][x+2] =  false;
@@ -185,6 +209,9 @@ public class Board {
                 currentBoard[y][x+1] = true;
                 currentBoard[y][x+2] =  true;
                 currentBoard[y][x+3] =  true;
+
+                 */
+                positionChange(-1, 0, currentBoard, true);
             }
         }
     }
@@ -193,9 +220,10 @@ public class Board {
      * moves the current piece right by one column
      */
     public void moveRight() {
-        if (x < NUM_COLS-1-2) { //-2 is number of squares after the first one
+        if (x < NUM_COLS- p.width) { //-2 is number of squares after the first one
             if (!rightmostPiece()) {
-                //pieceChange(currentBoard, 0, 1);
+                positionChange(1, 0, currentBoard, true);
+                /*
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
                 currentBoard[y][x+2] =  false;
@@ -205,6 +233,8 @@ public class Board {
                 currentBoard[y][x+1] = true;
                 currentBoard[y][x+2] =  true;
                 currentBoard[y][x+3] =  true;
+
+                 */
             }
         }
     }
@@ -253,9 +283,10 @@ public class Board {
      * @return true if there's a piece below the current piece and false otherwise
      */
     public boolean lowestPiece() {
-        for (int c = 0; c < 4; c++) {
-            for (int r = 0; r < 4; r++) {
-                    if (board[y + 1][x + c] || currentBoard[y + 1][x + c]) {
+        for (int c = 0; c < p.width; c++) {
+            for (int r = 0; r < p.height; r++) {
+                    if (board[y + p.height][x + c] || currentBoard[y + p.height][x + c]) {
+
                         return true;
                     }
             }
@@ -270,7 +301,7 @@ public class Board {
     public boolean rightmostPiece() {
         for (int c = 0; c < 4; c++) {
             for (int r = 0; r < 4; r++) {
-                if (board[y][x + 4] || currentBoard[y][x + 4]) {
+                if (board[y][x + p.width] || currentBoard[y][x + p.width]) {
                     return true;
                 }
             }
@@ -298,10 +329,8 @@ public class Board {
      * moves the piece from x, y to a new location
      * @param dx the amount moved right/left
      * @param dy the amount moved up/down
-     * @param x the x coordinate of the current top left corner of the piece
-     * @param y the y coordinate of the current top left corner of the piece
      */
-    public void positionChange(int dx, int dy, int x, int y) {
+    public void positionChange(int dx, int dy, boolean[][] b, boolean tf) {
         /*
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
@@ -316,7 +345,7 @@ public class Board {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if(p.occupies(i, j)) {
-                    currentBoard[j+y][i+x] = false;
+                    b[j+y][i+x] = false;
                 }
             }
         }
@@ -324,11 +353,12 @@ public class Board {
         y += dy;
         x += dx;
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if(p.occupies(i, j)) {
-                    //board[i+y][j+x] = true;
-                    currentBoard[j+y][i+x] = true;
+        if (tf) {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    if (p.occupies(i, j)) {
+                        b[j + y][i + x] = true;
+                    }
                 }
             }
         }
