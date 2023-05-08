@@ -30,7 +30,8 @@ public class Board {
     private Random rand = new Random();
 
     //can delete this later
-    Pieces piece = new OneBlock();
+    //Pieces piece = new OneBlock();
+    Pieces p = makePiece();
 
     /**
      * The Board constructor
@@ -38,7 +39,6 @@ public class Board {
      * initializes class variables and sets all the squares in board and currentBoard to false
      */
     public Board() {
-        Pieces p = makePiece();
         board = new boolean[NUM_ROWS][NUM_COLS];
         currentBoard = new boolean[NUM_ROWS][NUM_COLS];
 
@@ -118,10 +118,12 @@ public class Board {
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
                 currentBoard[y][x+2] =  false;
+                currentBoard[y][x+3] =  false;
                 y += 1;
                 currentBoard[y][x] = true;
                 currentBoard[y][x+1] = true;
                 currentBoard[y][x+2] =  true;
+                currentBoard[y][x+3] =  true;
 
                 //positionChange(0, 1, x, y);
             } else {
@@ -129,9 +131,11 @@ public class Board {
                 board[y][x] = true;
                 board[y][x+1] = true;
                 board[y][x+2] =  true;
+                board[y][x+3] =  true;
                 currentBoard[y][x] = true;
                 currentBoard[y][x+1] = true;
                 currentBoard[y][x+2] =  true;
+                currentBoard[y][x+3] =  true;
                 x = 10;
                 y = 0;
             }
@@ -141,9 +145,11 @@ public class Board {
             board[y][x] = true;
             board[y][x+1] = true;
             board[y][x+2] =  true;
+            board[y][x+3] =  true;
             currentBoard[y][x] = true;
             currentBoard[y][x+1] = true;
             currentBoard[y][x+2] =  true;
+            currentBoard[y][x+3] =  true;
             x = 10;
             y = 0;
         }
@@ -159,10 +165,12 @@ public class Board {
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
                 currentBoard[y][x+2] =  false;
+                currentBoard[y][x+3] =  false;
                 x -= 1;
                 currentBoard[y][x] = true;
                 currentBoard[y][x+1] = true;
                 currentBoard[y][x+2] =  true;
+                currentBoard[y][x+3] =  true;
             }
         }
     }
@@ -177,10 +185,12 @@ public class Board {
                 currentBoard[y][x] = false;
                 currentBoard[y][x+1] = false;
                 currentBoard[y][x+2] =  false;
+                currentBoard[y][x+3] =  false;
                 x += 1;
                 currentBoard[y][x] = true;
                 currentBoard[y][x+1] = true;
                 currentBoard[y][x+2] =  true;
+                currentBoard[y][x+3] =  true;
             }
         }
     }
@@ -229,8 +239,8 @@ public class Board {
      * @return true if there's a piece below the current piece and false otherwise
      */
     public boolean lowestPiece() {
-        for (int c = 0; c < 3; c++) {
-            for (int r = 0; r < 3; r++) {
+        for (int c = 0; c < 4; c++) {
+            for (int r = 0; r < 4; r++) {
                     if (board[y + 1][x + c] || currentBoard[y + 1][x + c]) {
                         return true;
                     }
@@ -244,9 +254,9 @@ public class Board {
      * @return true if there's a piece to the right of the current piece and false otherwise
      */
     public boolean rightmostPiece() {
-        for (int c = 0; c < 3; c++) {
-            for (int r = 0; r < 3; r++) {
-                if (board[y][x + 3] || currentBoard[y][x + 3]) {
+        for (int c = 0; c < 4; c++) {
+            for (int r = 0; r < 4; r++) {
+                if (board[y][x + 4] || currentBoard[y][x + 4]) {
                     return true;
                 }
             }
@@ -260,8 +270,8 @@ public class Board {
      * @return true if there's a piece to the left of the current piece and false otherwise
      */
     public boolean leftmostPiece() {
-        for (int c = 0; c < 3; c++) {
-            for (int r = 0; r < 3; r++) {
+        for (int c = 0; c < 4; c++) {
+            for (int r = 0; r < 4; r++) {
                 if (board[y][x - 1] || currentBoard[y][x - 1]) {
                     return true;
                 }
@@ -291,7 +301,7 @@ public class Board {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if(piece.occupies(i, j)) {
+                if(p.occupies(i, j)) {
                     currentBoard[j+y][i+x] = false;
                 }
             }
@@ -302,7 +312,7 @@ public class Board {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if(piece.occupies(i, j)) {
+                if(p.occupies(i, j)) {
                     //board[i+y][j+x] = true;
                     currentBoard[j+y][i+x] = true;
                 }
@@ -318,9 +328,9 @@ public class Board {
         Pieces oneB = new OneBlock();
         Pieces jB = new JBlock();
 
-        randPieces.put(1, oneB);
-        randPieces.put(2, jB);
+        //randPieces.put(2, oneB);
+        randPieces.put(1, jB);
 
-        return randPieces.get(rand.nextInt(2)+1);
+        return randPieces.get(rand.nextInt(1)+1);
     }
 }
