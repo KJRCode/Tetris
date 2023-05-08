@@ -117,75 +117,13 @@ public class Board {
      * Moves the current piece down by one row
      */
     public void moveDown() {
-        if (y < NUM_ROWS-p.height) {
-            if (!lowestPiece()) {
-                /*
-                currentBoard[y][x] = false;
-                currentBoard[y][x+1] = false;
-                currentBoard[y][x+2] =  false;
-                currentBoard[y][x+3] =  false;
-
-                 */
-                /*
-                for (int i = 0; i < 4; i++){
-                    x += i;
-                    if (p.occupies(y, x)){
-                        currentBoard[y][x] = false;
-                        currentBoard[y + 1][x] = true;
-                    }
-                }
-                 */
-                /*
-
-                y += 1;
-
-                currentBoard[y][x] = true;
-                currentBoard[y][x+1] = true;
-                currentBoard[y][x+2] =  true;
-                currentBoard[y][x+3] =  true;
-
-                 */
-
-                positionChange(0, 1, currentBoard, true);
-            } else {
-                pieceLanded = true;
-                positionChange(0,0,board, true);
-                /*
-                board[y][x] = true;
-                board[y][x+1] = true;
-                board[y][x+2] =  true;
-                board[y][x+3] =  true;
-
-                 */
-                /*
-                currentBoard[y][x] = false;
-                currentBoard[y][x+1] = false;
-                currentBoard[y][x+2] =  false;
-                currentBoard[y][x+3] =  false;
-
-                 */
-                positionChange(0,0,currentBoard, false);
-
-                x = 10;
-                y = 0;
-            }
-        }
-        else {
+        if ((y < NUM_ROWS-p.height) && !lowestPiece()) {
+            positionChange(0, 1, currentBoard, true);
+        } else {
+            pieceLanded = true;
             positionChange(0,0,board, true);
             positionChange(0,0,currentBoard, true);
 
-            pieceLanded = true;
-            /*
-            board[y][x] = true;
-            board[y][x+1] = true;
-            board[y][x+2] =  true;
-            board[y][x+3] =  true;
-            currentBoard[y][x] = true;
-            currentBoard[y][x+1] = true;
-            currentBoard[y][x+2] =  true;
-            currentBoard[y][x+3] =  true;
-
-             */
             x = 10;
             y = 0;
         }
@@ -197,20 +135,6 @@ public class Board {
     public void moveLeft() {
         if (x > 0) {
             if(!leftmostPiece()) {
-                //pieceChange(currentBoard, 0, -1);
-
-                /*
-                currentBoard[y][x] = false;
-                currentBoard[y][x+1] = false;
-                currentBoard[y][x+2] =  false;
-                currentBoard[y][x+3] =  false;
-                x -= 1;
-                currentBoard[y][x] = true;
-                currentBoard[y][x+1] = true;
-                currentBoard[y][x+2] =  true;
-                currentBoard[y][x+3] =  true;
-
-                 */
                 positionChange(-1, 0, currentBoard, true);
             }
         }
@@ -223,18 +147,6 @@ public class Board {
         if (x < NUM_COLS- p.width) { //-2 is number of squares after the first one
             if (!rightmostPiece()) {
                 positionChange(1, 0, currentBoard, true);
-                /*
-                currentBoard[y][x] = false;
-                currentBoard[y][x+1] = false;
-                currentBoard[y][x+2] =  false;
-                currentBoard[y][x+3] =  false;
-                x += 1;
-                currentBoard[y][x] = true;
-                currentBoard[y][x+1] = true;
-                currentBoard[y][x+2] =  true;
-                currentBoard[y][x+3] =  true;
-
-                 */
             }
         }
     }
@@ -263,7 +175,7 @@ public class Board {
             frame.append('|');
             // fill in this row
             for (int c = 0; c < NUM_COLS; c++) {
-                if (board[r][c] || currentBoard[r][c]) {//we stop in the upper left corner and draw the whole piece
+                if (board[r][c] || currentBoard[r][c]) {
                     frame.append("C");
                 } else {
                     frame.append(' ');
@@ -286,8 +198,7 @@ public class Board {
         for (int c = 0; c < p.width; c++) {
             for (int r = 0; r < p.height; r++) {
                     if (board[y + p.height][x + c] || currentBoard[y + p.height][x + c]) {
-
-                        return true;
+                            return true;
                     }
             }
         }
@@ -331,16 +242,6 @@ public class Board {
      * @param dy the amount moved up/down
      */
     public void positionChange(int dx, int dy, boolean[][] b, boolean tf) {
-        /*
-                currentBoard[y][x] = false;
-                currentBoard[y][x+1] = false;
-                currentBoard[y][x+2] =  false;
-                y += 1;
-                currentBoard[y][x] = true;
-                currentBoard[y][x+1] = true;
-                currentBoard[y][x+2] =  true;
-         */
-
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
