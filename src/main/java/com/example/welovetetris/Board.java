@@ -31,7 +31,8 @@ public class Board {
 
     //can delete this later
     //Pieces piece = new OneBlock();
-    Pieces p = makePiece();
+    //Pieces p = makePiece();
+    private Pieces p;
 
     /**
      * The Board constructor
@@ -41,6 +42,7 @@ public class Board {
     public Board() {
         board = new boolean[NUM_ROWS][NUM_COLS];
         currentBoard = new boolean[NUM_ROWS][NUM_COLS];
+        p = new OneBlock();
 
         for (int i = 0; i < NUM_ROWS; i++) {
             for (int j = 0; j < NUM_COLS; j++) {
@@ -119,7 +121,19 @@ public class Board {
                 currentBoard[y][x+1] = false;
                 currentBoard[y][x+2] =  false;
                 currentBoard[y][x+3] =  false;
+
+                /*
+                for (int i = 0; i < 4; i++){
+                    x += i;
+                    if (p.occupies(y, x)){
+                        currentBoard[y][x] = false;
+                        currentBoard[y + 1][x] = true;
+                    }
+                }
+                 */
+
                 y += 1;
+
                 currentBoard[y][x] = true;
                 currentBoard[y][x+1] = true;
                 currentBoard[y][x+2] =  true;
@@ -132,10 +146,10 @@ public class Board {
                 board[y][x+1] = true;
                 board[y][x+2] =  true;
                 board[y][x+3] =  true;
-                currentBoard[y][x] = true;
-                currentBoard[y][x+1] = true;
-                currentBoard[y][x+2] =  true;
-                currentBoard[y][x+3] =  true;
+                currentBoard[y][x] = false;
+                currentBoard[y][x+1] = false;
+                currentBoard[y][x+2] =  false;
+                currentBoard[y][x+3] =  false;
                 x = 10;
                 y = 0;
             }
