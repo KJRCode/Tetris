@@ -16,22 +16,14 @@ public class Board {
     //creating and initializing class variables
     final int NUM_ROWS = 20;
     final int NUM_COLS = 20;
-    int numLinesCleared;
-    int totalPoints;
     public boolean[][] board;
     public boolean[][] currentBoard;
-    private int x = 0;
+    private int x = 10;
     private int y = 0;
-    private boolean pieceLanded = false;
-    private char current = 'C';
 
     //setting up the Map of pieces
     private Map <Integer, Pieces> randPieces = new HashMap<>();
     private Random rand = new Random();
-
-    //can delete this later
-    //Pieces piece = new OneBlock();
-    //Pieces p = makePiece();
     private Pieces p;
 
     /**
@@ -40,23 +32,26 @@ public class Board {
      * initializes class variables and sets all the squares in board and currentBoard to false
      */
     public Board() {
+        //intializing boolean[][]s for the board
         board = new boolean[NUM_ROWS][NUM_COLS];
         currentBoard = new boolean[NUM_ROWS][NUM_COLS];
 
-        //get random piece here instead of oneBlock
+        //gets a random piece shape
         p = makePiece();
 
+        //sets the boards to false initially
         for (int i = 0; i < NUM_ROWS; i++) {
             for (int j = 0; j < NUM_COLS; j++) {
                 board[i][j] = false;
                 currentBoard[i][j] = false;
             }
         }
-
-        numLinesCleared = 0;
-        totalPoints = 0;
     }
 
+    /**
+     *gets the piece currently being used
+     * @return Pieces p
+     */
     public Pieces getPiece() {
        return p;
     }
@@ -77,18 +72,21 @@ public class Board {
         int counter = 0;
         boolean[][] temp = new boolean[NUM_ROWS][NUM_COLS];
 
+        //checks if the row is full and returns if it isn't
         for (int i = 0; i < NUM_COLS; i++) {
             if (!board[rowNum][i] && !currentBoard[rowNum][i]) {
                 return;
             }
         }
 
+        //sets all the squares in the row to false
         for (int i = 0; i < NUM_COLS; i++) {
             board[rowNum][i] = false;
             currentBoard[rowNum][i] = false;
         }
-        numLinesCleared++;
 
+        //sets all the squares in the temp board to the squares in the row below
+        //in board and currentBoard
         for (int i = rowNum+1; i >= 2; i--) {
             for (int j = 0; j < NUM_COLS; j++) {
                 temp[i-1][j] = board[i-2][j];
@@ -96,6 +94,7 @@ public class Board {
             }
         }
 
+        //sets board and currentBoard equal to temp and therefore moves the row down
         for (int i = rowNum; i >= 0; i--) {
             for (int j = 0; j < NUM_COLS; j++) {
                 board[i][j] = temp[i][j];
@@ -110,6 +109,7 @@ public class Board {
      */
     public boolean topRowIsEmpty() {
         for (int i = 0; i < NUM_COLS; i++) {
+            //if any square in the row isn't false then the row isn't empty
             if (board[0][i]) {
                 return false;
             }
@@ -121,13 +121,16 @@ public class Board {
      * Moves the current piece down by one row
      */
     public void moveDown() {
+        //moves the piece down if it's not on the bottom of the board
+        //and there's not a piece directly below it
         if ((y < NUM_ROWS-p.height) && !lowestPiece()) {
             positionChange(0, 1, currentBoard, true);
         } else {
-            pieceLanded = true;
+            //lands the piece by setting board and currentBoard to true
             positionChange(0,0,board, true);
             positionChange(0,0,currentBoard, true);
 
+            //puts a new random piece at the top of the board
             x = 10;
             y = 0;
             p = makePiece();
@@ -138,7 +141,9 @@ public class Board {
      * moves the current piece left by one column
      */
     public void moveLeft() {
+        //makes sure piece isn't against the left border
         if (x > 0) {
+            //checks if there's a piece directly to the left of the current piece
             if(!leftmostPiece()) {
                 positionChange(-1, 0, currentBoard, true);
             }
@@ -149,18 +154,13 @@ public class Board {
      * moves the current piece right by one column
      */
     public void moveRight() {
-        if (x < NUM_COLS- p.width) { //-2 is number of squares after the first one
+        //makes sure piece isn't against the right border
+        if (x < NUM_COLS- p.width) {
+            //checks if there's a piece directly to the right of the current piece
             if (!rightmostPiece()) {
                 positionChange(1, 0, currentBoard, true);
             }
         }
-    }
-
-    /**
-     * updates the player's score
-     */
-    public void updateScore() {
-
     }
 
     /**
@@ -180,6 +180,7 @@ public class Board {
             frame.append('|');
             // fill in this row
             for (int c = 0; c < NUM_COLS; c++) {
+                //add an X if the square is true (which means that a piece is there)
                 if (board[r][c] || currentBoard[r][c]) {
                     frame.append("X");
                 } else {
@@ -200,6 +201,7 @@ public class Board {
      * @return true if there's a piece below the current piece and false otherwise
      */
     public boolean lowestPiece() {
+       //checks if a piece can move down without hitting a piece below it
         for (int c = 0; c < p.width; c++) {
             for (int r = 0; r < p.height; r++) {
                     if (board[y + p.height][x + c] || currentBoard[y + p.height][x + c]) {
@@ -215,6 +217,7 @@ public class Board {
      * @return true if there's a piece to the right of the current piece and false otherwise
      */
     public boolean rightmostPiece() {
+        //checks if a piece can move right without hitting another piece
         for (int c = 0; c < 4; c++) {
             for (int r = 0; r < 4; r++) {
                 if (board[y][x + p.width] || currentBoard[y][x + p.width]) {
@@ -231,6 +234,8 @@ public class Board {
      * @return true if there's a piece to the left of the current piece and false otherwise
      */
     public boolean leftmostPiece() {
+
+        //checks if the piece can move left without hitting another piece
         for (int c = 0; c < 4; c++) {
             for (int r = 0; r < 4; r++) {
                 if (board[y][x - 1] || currentBoard[y][x - 1]) {
@@ -248,6 +253,7 @@ public class Board {
      */
     public void positionChange(int dx, int dy, boolean[][] b, boolean tf) {
 
+        //sets the piece's current location to false
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if(p.occupies(i, j)) {
@@ -256,9 +262,12 @@ public class Board {
             }
         }
 
+        //changes x and y by dx and dy amounts
         y += dy;
         x += dx;
 
+        //makes the new location true if variable tf is true.  Otherwise does nothing
+        //and essentially makes a piece disappear
         if (tf) {
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
@@ -275,7 +284,7 @@ public class Board {
      * @return a random Piece type, such as a JBlock or OBlock
      */
     public Pieces makePiece(){
-        //Pieces oneB = new OneBlock();
+        //make an object for each of the piece types
         Pieces jB = new JBlock();
         Pieces iB = new IBlock();
         Pieces lB = new LBlock();
@@ -284,7 +293,7 @@ public class Board {
         Pieces tB = new TBlock();
         Pieces zB = new ZBlock();
 
-        //randPieces.put(2, oneB);
+        //add each piece to the map
         randPieces.put(1, jB);
         randPieces.put(2, iB);
         randPieces.put(3, lB);
@@ -293,7 +302,7 @@ public class Board {
         randPieces.put(6, tB);
         randPieces.put(7, zB);
 
-
+        //return a random piece from the map
         return randPieces.get(rand.nextInt(1, 8));
     }
 }
