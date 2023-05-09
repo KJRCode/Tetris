@@ -10,6 +10,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,7 +58,7 @@ public class HelloApplication extends Application {
         Font frameFont = new Font("Courier New", 20);
         frame.setFont(frameFont);
         frame.setTextAlignment(TextAlignment.CENTER);
-        frame.setFill(Color.ORCHID);
+        frame.setFill(newColor());
         exampleScene.setFill(Color.BLACK);
 
         // add this text field to the layout
@@ -124,6 +125,21 @@ public class HelloApplication extends Application {
         }
 
         return b.makeFrame();
+    }
+
+    public Color newColor(){
+        ArrayList<Color> funColors = new ArrayList<>();
+        Random randColor = new Random();
+
+        funColors.add(Color.ORCHID);
+        funColors.add(Color.TURQUOISE);
+        funColors.add(Color.LAVENDERBLUSH);
+        funColors.add(Color.LEMONCHIFFON);
+        funColors.add(Color.SEAGREEN);
+        funColors.add(Color.DEEPPINK);
+
+        return funColors.get(randColor.nextInt(0, 5));
+
     }
 
     public static void main(String[] args) {
