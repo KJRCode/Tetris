@@ -90,8 +90,6 @@ public class HelloApplication extends Application {
                 frame.setText(nextFrame());
             }
         });
-        //trying to use git
-
 
         //makes the piece fall every second
         TimerTask falling = new TimerTask () {
