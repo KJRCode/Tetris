@@ -60,7 +60,6 @@ public class HelloApplication extends Application {
         frame.setFill(Color.ORCHID);
         exampleScene.setFill(Color.BLACK);
 
-
         // add this text field to the layout
         layout.setCenter(frame);
 

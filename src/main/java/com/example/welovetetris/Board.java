@@ -181,7 +181,7 @@ public class Board {
             // fill in this row
             for (int c = 0; c < NUM_COLS; c++) {
                 if (board[r][c] || currentBoard[r][c]) {
-                    frame.append("C");
+                    frame.append("X");
                 } else {
                     frame.append(' ');
                 }
