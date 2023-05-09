@@ -57,6 +57,10 @@ public class Board {
         totalPoints = 0;
     }
 
+    public Pieces getPiece() {
+       return p;
+    }
+
     /**
      * @return boolean[][] board
      */

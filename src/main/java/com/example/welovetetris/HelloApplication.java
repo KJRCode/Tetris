@@ -84,6 +84,11 @@ public class HelloApplication extends Application {
                 b.moveRight();
                 frame.setText(nextFrame());
             }
+            else if (event.getCode().equals(KeyCode.UP)) {
+                b.positionChange(0,0, b.currentBoard, false);
+                b.getPiece().turnPieceClockwise();
+                frame.setText(nextFrame());
+            }
         });
         //trying to use git
 

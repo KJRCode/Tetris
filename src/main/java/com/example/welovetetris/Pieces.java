@@ -1,9 +1,5 @@
 package com.example.welovetetris;
 
-import java.lang.reflect.Array;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author Winona Wherley
  * @author Karly Ripper
@@ -55,10 +51,22 @@ public abstract class Pieces{
      * rotates piece clockwise by 90 degrees
      */
     public void turnPieceClockwise() {
-    }
+            Boolean[][] pieceSpin = new Boolean[4][4];
 
-    /**
-     * abstract method
-     * the shape of each of the pieces
-     */
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    pieceSpin[j][3-i] = mask[i][j];
+                }
+            }
+
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    mask[i][j] = pieceSpin[i][j];
+                }
+            }
+
+            int tempval = height;
+            height = width;
+            width = tempval;
+    }
 }
