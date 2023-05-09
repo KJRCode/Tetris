@@ -44,7 +44,7 @@ public class Board {
         currentBoard = new boolean[NUM_ROWS][NUM_COLS];
 
         //get random piece here instead of oneBlock
-        p = new OneBlock();
+        p = makePiece();
 
         for (int i = 0; i < NUM_ROWS; i++) {
             for (int j = 0; j < NUM_COLS; j++) {
@@ -126,6 +126,7 @@ public class Board {
 
             x = 10;
             y = 0;
+            p = makePiece();
         }
     }
 
@@ -270,12 +271,25 @@ public class Board {
      * @return a random Piece type, such as a JBlock or OBlock
      */
     public Pieces makePiece(){
-        Pieces oneB = new OneBlock();
+        //Pieces oneB = new OneBlock();
         Pieces jB = new JBlock();
+        Pieces iB = new IBlock();
+        Pieces lB = new LBlock();
+        Pieces oB = new OBlock();
+        Pieces sB = new SBlock();
+        Pieces tB = new TBlock();
+        Pieces zB = new ZBlock();
 
         //randPieces.put(2, oneB);
         randPieces.put(1, jB);
+        randPieces.put(2, iB);
+        randPieces.put(3, lB);
+        randPieces.put(4, oB);
+        randPieces.put(5, sB);
+        randPieces.put(6, tB);
+        randPieces.put(7, zB);
 
-        return randPieces.get(rand.nextInt(1)+1);
+
+        return randPieces.get(rand.nextInt(1, 8));
     }
 }
