@@ -8,7 +8,6 @@ package com.example.welovetetris;
  * pieces that we'll need.
  */
 public abstract class Pieces{
-
     //setting up class variables
     protected Boolean[][] mask;
     protected int r;
