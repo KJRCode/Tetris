@@ -263,10 +263,15 @@ public class Board {
         boolean pieceLeft = false;
 
         //checks if the piece can move left without hitting another piece
-        for (int c = 1; c < p.width; c++) {
+        for (int c = 0; c < p.width; c++) {
             for (int r = 0; r < p.height; r++) {
-                if (p.occupies(c, r)){
-                    if (!p.occupies(c - 1, r)){
+                if (p.occupies(c, r)) {
+                    if (c >= 1 && !p.occupies(c - 1, r)){
+                        if (board[y + r][x + c - 1]){
+                            pieceLeft = true;
+                        }
+                    }
+                    else if (c == 0) {
                         if (board[y + r][x + c - 1]){
                             pieceLeft = true;
                         }
