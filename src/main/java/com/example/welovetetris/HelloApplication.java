@@ -124,6 +124,7 @@ public class HelloApplication extends Application {
         ArrayList<Color> funColors = new ArrayList<>();
         Random randColor = new Random();
 
+        //adds colors to the funColors ArrayList
         funColors.add(Color.ORCHID);
         funColors.add(Color.TURQUOISE);
         funColors.add(Color.LAVENDERBLUSH);
@@ -131,6 +132,7 @@ public class HelloApplication extends Application {
         funColors.add(Color.SEAGREEN);
         funColors.add(Color.DEEPPINK);
 
+        //returns a random color from the list
         return funColors.get(randColor.nextInt(0, 5));
 
     }
