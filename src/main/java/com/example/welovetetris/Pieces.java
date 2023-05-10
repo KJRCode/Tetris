@@ -20,9 +20,9 @@ public abstract class Pieces{
      * squares to false.
      */
     public Pieces() {
-        mask = new Boolean[4][4];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        mask = new Boolean[5][5];
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 mask[i][j] = false;
             }
 

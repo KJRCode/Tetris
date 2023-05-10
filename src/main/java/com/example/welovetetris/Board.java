@@ -201,15 +201,46 @@ public class Board {
      * @return true if there's a piece below the current piece and false otherwise
      */
     public boolean lowestPiece() {
-       //checks if a piece can move down without hitting a piece below it
+        boolean pieceUnder = false;
+
         for (int c = 0; c < p.width; c++) {
+            for (int r = 0; r < p.height; r++) {
+                if (p.occupies(c, r)){
+                    if (!p.occupies(c, r + 1)){
+                        if (board[y + r + 1][x +c]){
+                            pieceUnder = true;
+                        }
+                    }
+                }
+            }
+        }
+
+
+       //checks if a piece can move down without hitting a piece below it
+
+
+                    /*
+                    if (r == 3){
+                        if (board[y + p.height][x + c] || currentBoard[y + p.height][x + c]) {
+                            pieceUnder = true;
+                            //checks if the spot right under the farthest edge of the piece is true
+                        }
+                    }
+
+                     */
+
+
+            /*
             for (int r = 0; r < p.height; r++) {
                     if (board[y + p.height][x + c] || currentBoard[y + p.height][x + c]) {
                             return true;
+                            //checks if the spot right under the farthest edge of the piece is true
                     }
             }
-        }
-        return false;
+
+             */
+
+        return pieceUnder;
     }
 
     /**
