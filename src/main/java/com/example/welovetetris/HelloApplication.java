@@ -22,9 +22,7 @@ import java.util.TimerTask;
  * Tetris game can actually be played by people.
  */
 public class HelloApplication extends Application {
-    public static final int BOARD_HEIGHT = 20;
     Board b = new Board();
-    boolean[][] board = b.getArray();
 
     /**
      * Set up the starting scene of your application given the primaryStage (basically the window)
@@ -84,11 +82,6 @@ public class HelloApplication extends Application {
                 b.moveRight();
                 frame.setText(nextFrame());
             }
-            else if (event.getCode().equals(KeyCode.UP)) {
-                b.positionChange(0,0, b.currentBoard, false);
-                b.getPiece().turnPieceClockwise();
-                frame.setText(nextFrame());
-            }
         });
 
         //makes the piece fall every second
@@ -117,11 +110,6 @@ public class HelloApplication extends Application {
         //ends game if a piece has reached the top
         if (!b.topRowIsEmpty()) {
             System.exit(0);
-        }
-
-        //checks if any rows are empty and clears them if they are
-        for (int i = 0; i < BOARD_HEIGHT; i++) {
-            b.clearRow(i);
         }
 
         return b.makeFrame();

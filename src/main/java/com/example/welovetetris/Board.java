@@ -57,13 +57,6 @@ public class Board {
     }
 
     /**
-     * @return boolean[][] board
-     */
-    public boolean[][] getArray() {
-        return board;
-    }
-
-    /**
      * checks if a row rowNum is full and if it is it empties the row and moves all
      * the rows above it down one
      * @param rowNum the row being checked if it's full
@@ -133,6 +126,12 @@ public class Board {
             //puts a new random piece at the top of the board
             x = 10;
             y = 0;
+
+            //checks if any rows are empty and clears them if they are
+            for (int i = 0; i < NUM_ROWS; i++) {
+                clearRow(i);
+            }
+
             p = makePiece();
         }
     }
@@ -240,17 +239,6 @@ public class Board {
                 }
             }
         }
-        /*
-        for (int c = 0; c < 4; c++) {
-            for (int r = 0; r < 4; r++) {
-                if (board[y][x + p.width] || currentBoard[y][x + p.width]) {
-                    return true;
-                }
-            }
-        }
-        return false;
-
-         */
         return pieceRight;
     }
 
@@ -279,17 +267,6 @@ public class Board {
                 }
             }
         }
-        /*
-        for (int c = 0; c < 4; c++) {
-            for (int r = 0; r < 4; r++) {
-                if (board[y][x - 1] || currentBoard[y][x - 1]) {
-                    return true;
-                }
-            }
-        }
-        return false;
-
-         */
         return pieceLeft;
     }
 
