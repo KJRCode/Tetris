@@ -218,28 +218,6 @@ public class Board {
 
        //checks if a piece can move down without hitting a piece below it
 
-
-                    /*
-                    if (r == 3){
-                        if (board[y + p.height][x + c] || currentBoard[y + p.height][x + c]) {
-                            pieceUnder = true;
-                            //checks if the spot right under the farthest edge of the piece is true
-                        }
-                    }
-
-                     */
-
-
-            /*
-            for (int r = 0; r < p.height; r++) {
-                    if (board[y + p.height][x + c] || currentBoard[y + p.height][x + c]) {
-                            return true;
-                            //checks if the spot right under the farthest edge of the piece is true
-                    }
-            }
-
-             */
-
         return pieceUnder;
     }
 
@@ -248,7 +226,21 @@ public class Board {
      * @return true if there's a piece to the right of the current piece and false otherwise
      */
     public boolean rightmostPiece() {
+        boolean pieceRight = false;
+
         //checks if a piece can move right without hitting another piece
+        for (int c = 0; c < p.width; c++) {
+            for (int r = 0; r < p.height; r++) {
+                if (p.occupies(c, r)){
+                    if (!p.occupies(c + 1, r)){
+                        if (board[y + r][x + c + 1]){
+                            pieceRight = true;
+                        }
+                    }
+                }
+            }
+        }
+        /*
         for (int c = 0; c < 4; c++) {
             for (int r = 0; r < 4; r++) {
                 if (board[y][x + p.width] || currentBoard[y][x + p.width]) {
@@ -257,6 +249,9 @@ public class Board {
             }
         }
         return false;
+
+         */
+        return pieceRight;
     }
 
 
@@ -265,8 +260,21 @@ public class Board {
      * @return true if there's a piece to the left of the current piece and false otherwise
      */
     public boolean leftmostPiece() {
+        boolean pieceLeft = false;
 
         //checks if the piece can move left without hitting another piece
+        for (int c = 1; c < p.width; c++) {
+            for (int r = 0; r < p.height; r++) {
+                if (p.occupies(c, r)){
+                    if (!p.occupies(c - 1, r)){
+                        if (board[y + r][x + c - 1]){
+                            pieceLeft = true;
+                        }
+                    }
+                }
+            }
+        }
+        /*
         for (int c = 0; c < 4; c++) {
             for (int r = 0; r < 4; r++) {
                 if (board[y][x - 1] || currentBoard[y][x - 1]) {
@@ -275,6 +283,9 @@ public class Board {
             }
         }
         return false;
+
+         */
+        return pieceLeft;
     }
 
     /**
