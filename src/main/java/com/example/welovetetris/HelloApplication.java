@@ -27,7 +27,7 @@ public class HelloApplication extends Application {
     /**
      * Set up the starting scene of your application given the primaryStage (basically the window)
      * https://docs.oracle.com/javase/8/javafx/api/index.html
-     *
+     * This class sets up and runs the game.
      * @param primaryStage the primary container for scenes
      */
     @Override
@@ -63,6 +63,7 @@ public class HelloApplication extends Application {
         layout.setCenter(frame);
 
         // define code to run every time a KeyPressed event is detected on this window to check for ESC to close
+        //moves the piece around the board in accordance to which keys are pressed
         // NOTE: there even is of type javafx.scene.input.KeyEvent
         // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/input/KeyEvent.html
         exampleScene.setOnKeyPressed(event -> {
@@ -115,6 +116,10 @@ public class HelloApplication extends Application {
         return b.makeFrame();
     }
 
+    /**
+     * picks a random color from a list of colors and returns it
+     * @return a type of Color
+     */
     public Color newColor(){
         ArrayList<Color> funColors = new ArrayList<>();
         Random randColor = new Random();
@@ -130,6 +135,9 @@ public class HelloApplication extends Application {
 
     }
 
+    /**
+     * This method runs the program.
+     */
     public static void main(String[] args) {
         launch();
     }

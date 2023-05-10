@@ -132,6 +132,7 @@ public class Board {
                 clearRow(i);
             }
 
+            //makes a new piece at the top of the board
             p = makePiece();
         }
     }
@@ -202,6 +203,7 @@ public class Board {
     public boolean lowestPiece() {
         boolean pieceUnder = false;
 
+        //checks if a piece can move down without hitting another piece
         for (int c = 0; c < p.width; c++) {
             for (int r = 0; r < p.height; r++) {
                 if (p.occupies(c, r)){
